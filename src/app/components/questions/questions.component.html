@@ -1,0 +1,46 @@
+<section class="app-questions-container">
+  @if(!dataService.getTestFinished()()){
+    @if(!question.question) {
+      <ng-container *ngTemplateOutlet="introContainer"></ng-container>
+    } @else {
+      <ng-container *ngTemplateOutlet="questionContainer"></ng-container>
+    }
+  } @else {
+    <ng-container *ngTemplateOutlet="resultContainer"></ng-container>
+  }
+
+</section>
+
+<ng-template #introContainer>
+  <div class="intro-container">
+    <h2>
+      <span>Bem-vindo&nbsp;</span> <span>ao&nbsp;</span>
+      <br />
+      <strong><span>DevQuiz!&nbsp;</span></strong>
+    </h2>
+    <p>
+      <span>Escolha&nbsp;</span> <span>um&nbsp;</span> <span>tópico&nbsp;</span>
+      <span>para&nbsp;</span> <span>iniciar.&nbsp;</span>
+    </p>
+  </div>
+</ng-template>
+
+<ng-template #questionContainer>
+
+  <div class="question-container">
+    <div>
+      <p><span>Pergunta&nbsp;</span> <span>{{ this.dataService.getStep()() + 1 }}&nbsp;</span> <span>de&nbsp;</span> <span>10&nbsp;</span></p>
+      <h3 [question]="question.question"></h3>
+    </div>
+    <app-progress [actualValue]="this.dataService.getStep()()"/>
+  </div>
+</ng-template>
+
+<ng-template #resultContainer>
+  <div class="result-container">
+    <h3><span><strong>Quiz&nbsp;</strong></span> <span>finalizado&nbsp;</span>
+      <br>
+      <span><strong>Sua pontuação foi...</strong></span>
+    </h3>
+  </div>
+</ng-template>
