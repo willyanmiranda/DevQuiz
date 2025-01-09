@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ViewEncapsulation, effect, inject } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, effect, inject } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Question } from '../../models/question.model';
 import { QuestionDirective } from '../../directives/question.directive';
@@ -13,10 +13,14 @@ import { ProgressComponent } from '../progress/progress.component';
   styleUrl: './questions.component.scss',
   encapsulation: ViewEncapsulation.ShadowDom
 })
-export class QuestionsComponent {
+export class QuestionsComponent implements OnInit {
   dataService = inject(DataService);
 
   question: Question = {} as Question;
+
+  ngOnInit(): void {
+    this.dataService.fetchDataAndSetData();
+  }
 
   constructor() {
     effect(() => {

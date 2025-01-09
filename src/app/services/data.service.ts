@@ -1,19 +1,36 @@
 import { Injectable, WritableSignal, signal } from '@angular/core';
 import data from '../../assets/data.json';
 import { Quizz } from '../models/question.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private data: Quizz[] = data.quizzes;
+  private apiUrl = 'http://localhost:3000/';
+
+  private data: Quizz[] = [];
 
   private step = signal(0);
 
   private quizz: WritableSignal<Quizz> = signal({} as Quizz);
 
   private testFinished = signal(false);
+
+  constructor(private http: HttpClient) {};
+
+  fetchDataAndSetData(): void {
+    this.http.get<Quizz[]>(this.apiUrl).subscribe({
+      next: (quizzes) => {
+        this.data = quizzes;
+      },
+      error: (err) => {
+        console.error('Erro ao buscar os dados:', err);
+      }
+    });
+  }  
 
   getTestFinished(): WritableSignal<boolean> {
     return this.testFinished;

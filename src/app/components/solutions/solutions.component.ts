@@ -4,6 +4,7 @@ import { DataService } from '../../services/data.service';
 import { Question } from '../../models/question.model';
 
 
+
 export enum responses {
   'A', 'B', 'C', 'D'
 }
