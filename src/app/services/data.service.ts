@@ -1,5 +1,4 @@
 import { Injectable, WritableSignal, signal } from '@angular/core';
-import data from '../../assets/data.json';
 import { Quizz } from '../models/question.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -22,14 +21,19 @@ export class DataService {
   constructor(private http: HttpClient) {};
 
   fetchDataAndSetData(): void {
+    console.log('chamou')
+    console.log(this.data)
     this.http.get<Quizz[]>(this.apiUrl).subscribe({
       next: (quizzes) => {
+        console.log(quizzes)
         this.data = quizzes;
       },
       error: (err) => {
         console.error('Erro ao buscar os dados:', err);
       }
     });
+    console.log('....')
+    console.log(this.data)
   }  
 
   getTestFinished(): WritableSignal<boolean> {
