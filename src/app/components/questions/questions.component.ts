@@ -13,14 +13,10 @@ import { ProgressComponent } from '../progress/progress.component';
   styleUrl: './questions.component.scss',
   encapsulation: ViewEncapsulation.ShadowDom
 })
-export class QuestionsComponent implements OnInit {
+export class QuestionsComponent{
   dataService = inject(DataService);
 
   question: Question = {} as Question;
-
-  ngOnInit(): void {
-    this.dataService.fetchDataAndSetData();
-  }
 
   constructor() {
     effect(() => {
